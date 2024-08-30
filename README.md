@@ -17,3 +17,4 @@ Hey, this are fun, interesting and absolutely horrific assignements for DaSH Lab
 Note: Had Done Upgradeable Smart Contracts Assignments previously
 
 **Didn't have time to do individual writeups for each task, will add later on**
+**Interested in Smart Space Project. Lack of time to attempt assignments**
