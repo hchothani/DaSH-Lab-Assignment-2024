@@ -5,8 +5,13 @@ import sys
 
 sys.setrecursionlimit(1000000)
 
-c1, c2, c3 = input(" Enter Client Division")
-client_id = input("Enter Client ID: 1")
+print("Enter Client Division")
+c1 = int(input())
+c2 = int(input())
+c3 = int(input())
+client_id = int(input("Enter Client ID 1, 2 or 3: "))
+
+
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((socket.gethostname(), 9999))
@@ -16,7 +21,13 @@ with open('input.txt', 'r') as f:
 
 print("Read Lines")
 
-prompts = all[:3]
+if (client_id==1):
+    prompts = all[:c1]
+elif (client_id==2):
+    prompts = all[c1:c1+c2]
+else:
+    prompts = all[c1+c2:]
+
 data = [client_id, prompts]
 serialized_data = pickle.dumps(data)
 s.sendall(serialized_data)
