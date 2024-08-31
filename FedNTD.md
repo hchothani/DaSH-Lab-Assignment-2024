@@ -12,9 +12,11 @@ To help prevent forgetting and improve accuracy on out-local distribution of dat
 
 What are refined logits and how is this done?
 
-For each batch of data, we remove the logits (output) for the "true class" or the actual label of the data for both the global model and local model and call them refined logits. We then calculate the KL Divergence betwen the refined logits of the local and global models and multiple them with a hyperparameter (Beta) that represents the strength of knowledge preservation on the out-local distribution.
+For each batch of data, we remove the logits (output) for the "true class" or the actual label of the data for both the global model and local model and call them refined logits. We then calculate the KL Divergence betwen the refined logits of the local and global models and multiplies them with a hyperparameter (Beta) that represents the strength of knowledge preservation on the out-local distribution.
 
 We then add this loss to the normal loss function (in this case cross entropy loss) of the local model using the unrefined logits.
-In this new loss function taking into account Not-True-Distillation: we attain knowledge on the in-local distribution by following the true-class signals from the labeled data in local datasets and also preserve the previous konwledge on the out-local distribution by following the global model's perspective coreesponding to the not-true class signals.
 
-On comparison with other strategies such as FedAvg, the paper shows that although there is lottle change in local accuracy on in-local distribution, FedNTD significanly improves the l ocal accuracy on out-local distribution, which implies it prevents forgetting. Along with this, the test accuracy of the global model also improves substantially. This gap is enlarged as the number of local epochs increase.
+In this new loss function, taking into account Not-True-Distillation: we attain knowledge on the in-local distribution by following the true-class signals from the labeled data in local datasets and also preserve the previous konwledge on the out-local distribution by following the global model's perspective coreesponding to the not-true class signals.
+
+On comparison with other strategies such as FedAvg, the paper shows that although there is little change in local accuracy on in-local distribution, FedNTD significanly improves the local accuracy on out-local distribution, which implies it prevents forgetting. 
+Along with this, the test accuracy of the global model also improves substantially. This gap is enlarged as the number of local epochs increase.
