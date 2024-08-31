@@ -1,6 +1,6 @@
 ## Harsh Chothani DaSH Assignments
 
-Hey, this are fun, interesting and absolutely horrific assignements for DaSH Lab
+Hey! These are fun, interesting and horrific assignements for DaSH Lab
 
 #### Assignments Attempted
 
