@@ -3,6 +3,7 @@
 import torch
 from flwr.client import NumPyClient, ClientApp
 from flwr.common import Context
+from test.resnet50 import ResNet50
 
 from test.task import (
     Net,
@@ -43,7 +44,7 @@ class FlowerClient(NumPyClient):
 
 def client_fn(context: Context):
     # Load model and data
-    net = Net()
+    net = ResNet50()
     partition_id = context.node_config["partition-id"]
     num_partitions = context.node_config["num-partitions"]
     trainloader, valloader = load_data(partition_id, num_partitions)

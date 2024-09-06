@@ -70,18 +70,24 @@ def train(net, global_net, trainloader, epochs, device, beta=0.45, temp=1):
     optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9)
     net.train()
     running_loss = 0.0
-    for _ in range(epochs):
+    for epoch in range(epochs):
         for batch in trainloader:
             images = batch["img"]
             labels = batch["label"]
             optimizer.zero_grad()
-            with torch.no_grad():
-                global_logits = global_net(images)
-            local_logits = net(images)
-            targets = F.softmax(global_logits/temp, dim=1)
-            prob = F.log_softmax(local_logits/temp, dim=1)
+            if (epoch  % 2  == 0):
+        
+                with torch.no_grad():
+                    global_logits = global_net(images)
+                local_logits = net(images)
+                targets = F.softmax(global_logits/temp, dim=1)
+                prob = F.log_softmax(local_logits/temp, dim=1)
+                kl_loss = F.kl_div(prob, targets, reduction="batchmean")
+            else:
+                kl_loss = 0
+
+            print(f"Distillation Loss for {epoch} = {kl_loss}")
             ce_loss = criterion(net(images.to(device)), labels.to(device))
-            kl_loss = F.kl_div(prob, targets, reduction="batchmean")
             loss = (1-beta)*ce_loss + beta*(temp**2)*kl_loss
             loss.backward()
             optimizer.step()

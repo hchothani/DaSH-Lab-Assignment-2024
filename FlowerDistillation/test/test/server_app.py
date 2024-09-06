@@ -3,6 +3,7 @@
 from flwr.common import Context, ndarrays_to_parameters
 from flwr.server import ServerApp, ServerAppComponents, ServerConfig
 from flwr.server.strategy import FedAvg
+from test.resnet50 import ResNet50
 
 from test.task import Net, get_weights
 
@@ -13,7 +14,7 @@ def server_fn(context: Context):
     fraction_fit = context.run_config["fraction-fit"]
 
     # Initialize model parameters
-    ndarrays = get_weights(Net())
+    ndarrays = get_weights(ResNet50())
     parameters = ndarrays_to_parameters(ndarrays)
 
     # Define strategy
